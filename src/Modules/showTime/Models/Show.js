@@ -15,9 +15,17 @@ const showTimeSchema = new mongoose.Schema({
     required: true,
   },
   time: {
+    type: [String],
+    required: true,
+  },
+  seats: {
     type: String,
     required: true,
   },
+  ticketPrice:{
+    type: String,
+    required: true,
+  }
 });
 
 // Static method to validate movie data

@@ -6,7 +6,9 @@ const validateShowTime = (showTimeData) => {
     theatre: Joi.string().required().min(1),
     movie: Joi.string().required().min(1),
     date: Joi.date().iso().required(),
-    time: Joi.string().required().pattern(new RegExp('^([01]?[0-9]|2[0-3]):[0-5][0-9]$')), // HH:MM format 
+    time: Joi.array().items(Joi.string()).required(), // HH:MM format 
+    seats: Joi.string().required(),
+    ticketPrice: Joi.string().required(),
   });
 
   return schema.validate(showTimeData);

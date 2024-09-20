@@ -8,6 +8,7 @@ const validateTheatre = (theatre) => {
     city: Joi.string().required(),
     state: Joi.string().required(),
     seatingCapacity: Joi.string().required(),
+    ticketPrice: Joi.string().required(),
   });
   
   return schema.validate(theatre);

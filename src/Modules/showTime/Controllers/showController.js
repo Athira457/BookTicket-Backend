@@ -1,8 +1,8 @@
-const ShowTime = require('../Models/ShowTime');
+const ShowTime = require('../Models/Show');
 
 // Create a new show time
 exports.createShowTime = async (req, res) => {
-  const { theatre, movie, date, time } = req.body;
+  const { theatre, movie, date, time, seats, ticketPrice } = req.body;
 
   try {
     const newShowTime = new ShowTime({    
@@ -10,6 +10,8 @@ exports.createShowTime = async (req, res) => {
       movie,
       date,
       time,
+      seats,
+      ticketPrice,
     });
 
     await newShowTime.save();
@@ -57,3 +59,4 @@ exports.EditShow = async (req, res) => {
     res.status(500).json({ message: 'Failed to update show' });
   }
 };
+

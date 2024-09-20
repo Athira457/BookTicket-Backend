@@ -29,6 +29,9 @@ const theatreSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  ticketPrice:{
+    type: String,
+  }
 });
 
 // Auto-increment for theatreId

@@ -1,5 +1,6 @@
 const express = require('express');
 const Movie = require('../Models/Movies');
+const ShowTime = require('../../showTime/Models/Show')
 
 // Add a new Movie
 exports.createMovie =  async (req, res) => {
@@ -67,3 +68,26 @@ exports.EditMovie = async (req, res) => {
     res.status(500).json({ message: 'Failed to update movie' });
   }
 };
+
+// get show timings by movie id 
+exports.getShowDetails = async (req, res) => {
+  const { id } = req.params; 
+  try {
+    const movie = await Movie.findById(id);
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found' });
+    }
+    const movieName = movie.name;
+    const shows = await ShowTime.find({ movie: movieName });
+
+    if (shows.length === 0) {
+      return res.status(404).json({ message: 'No shows found for this movie' });
+    }
+    res.status(200).json({ movieTitle: movieName, shows });
+  } catch (error) {
+    console.error('Error fetching movie or show details:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+

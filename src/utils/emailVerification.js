@@ -17,6 +17,7 @@ exports.generateOTP = async (req, res) => {
     console.log(otp);
     
     try {
+        
         await User.findOneAndUpdate({ email, otp });
 
         // Send OTP via email 
@@ -34,8 +35,7 @@ exports.generateOTP = async (req, res) => {
             subject: 'OTP Verification',
             text: `Your OTP for verification is: ${otp}`
         });
-
-        res.status(200).send('OTP sent successfully');
+        res.status(200).send('success');
     } catch (error) {
         console.error(error);
         res.status(500).send('Error sending OTP');

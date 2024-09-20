@@ -3,11 +3,9 @@ const express = require('express');
 const Theatre = require('../Models/Theatre');
 
 exports.registerTheatre = async (req, res) => {
-  const { error } = validateTheatre(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+  const {  name, location, city, state, seatingCapacity, ticketPrice} = req.body;
   try {
-    const newTheatre = new Theatre(req.body);
+    const newTheatre = new Theatre({name, location, city, state, seatingCapacity, ticketPrice});
     await newTheatre.save();
     res.status(201).send('Theatre registered successfully');
   } catch (err) {

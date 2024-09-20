@@ -7,6 +7,9 @@ const TheatreController = require('../Modules/Theatres/Controllers/theatreContro
 const ShowController = require('../Modules/showTime/Controllers/showController');
 const upload = require('../Middlewares/multerMiddleware');
 const emailVerify = require('../utils/emailVerification');
+const paymentController = require('../utils/paymentController');
+const bookController = require('../Modules/book/controllers/bookController')
+const jwtMiddleware = require('../Middlewares/jwtMiddleware')
 
 //Authentication routes
 router.post('/signup',userController.signUp);
@@ -23,6 +26,7 @@ router.get('/moviesFetch',  movieController.getAllMovies);
 router.get('/movieId/:id', movieController.getMovieById);
 router.delete('/movieDelete/:id', movieController.deleteMovie);
 router.put('/movieEdit/:id',movieController.EditMovie);
+router.get('/details/:id', movieController.getShowDetails);
 
 //theatre  routes
 router.post('/theatres',  TheatreController.registerTheatre);
@@ -36,4 +40,11 @@ router.get('/showsFetch',ShowController.getAllShowTimes);
 router.delete('/showsDelete/:id', ShowController.deleteShow);
 router.put('/showsEdit/:id',  ShowController.EditShow);
 
+//payment router
+router.get('/create-order', paymentController.createOrder);
+router.post('/verify-payment', paymentController.verifyPayment);
 module.exports = router;
+
+//booking router
+router.post('/book', bookController.bookingDetails);
+router.get('/confirm-book',bookController.confirmBook)
