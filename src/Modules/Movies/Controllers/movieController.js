@@ -90,4 +90,23 @@ exports.getShowDetails = async (req, res) => {
   }
 };
 
+// Search  Movies by name or genre
+exports.searchMovies = async (req, res) => {
+  const { search } = req.query;
+  try {    let query = {};
+    if (search) {
+      query = {
+        $or: [
+          { name: { $regex: search, $options: 'i' } },   
+          { genre: { $regex: search, $options: 'i' } }  
+        ]
+      };
+    }
+    const movies = await Movie.find(query);  
+    res.status(200).json(movies);
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+    res.status(500).json({ error: 'Failed to fetch movies' });
+  }
+};
 
